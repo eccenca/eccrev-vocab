@@ -1,4 +1,4 @@
-# Lucid Revision vocabulary
+# Lucid Revision vocabulary & data model
 #
 # Defines the Commit & Revision classes together with their expected properties.
 # The expressiveness of the language is OWL DL
@@ -22,16 +22,18 @@
 
 :Revision a owl:Class ;
   rdfs:comment "Represents a modification on a specific named graph"@en ;
-  owl:unionOf (
-    [ a owl:Restriction ;
-      owl:onProperty :deltaDelete ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger
-    ]
-    [ a owl:Restriction ;
-      owl:onProperty :deltaInsert ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger
-    ]
-  ) ;
+  owl:equivalentClass 
+   [  owl:unionOf (
+        [ a owl:Restriction ;
+          owl:onProperty :deltaDelete ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger
+        ]
+        [ a owl:Restriction ;
+          owl:onProperty :deltaInsert ;
+          owl:cardinality "1"^^xsd:nonNegativeInteger
+        ]
+      )
+   ] ;
   rdfs:subClassOf prov:Entity ,
     [ a owl:Restriction ;
       owl:onProperty dct:title ;
