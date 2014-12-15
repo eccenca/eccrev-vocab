@@ -1,0 +1,11 @@
+.classpath
+.gradle*
+.idea
+.project
+.settings
+.springBeans
+*~
+build/
+bin/
+WebContent/
+*.pyc
