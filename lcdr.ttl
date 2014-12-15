@@ -13,11 +13,15 @@
 
 :Commit a owl:Class ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (inversely connected with a prov:wasGeneratedBy relationship)"@en ;
-  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
+  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
+  owl:equivalentClass 
     [ a owl:Restriction ;
       owl:onProperty :previousCommit ;
-      owl:minCardinality "0"^^xsd:nonNegativeInteger ;
       owl:maxCardinality "2"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitMessage ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger
     ] .
 
 :Revision a owl:Class ;
@@ -36,10 +40,6 @@
    ] ;
   rdfs:subClassOf prov:Entity ,
     [ a owl:Restriction ;
-      owl:onProperty dct:title ;
-      owl:maxCardinality "1"^^xsd:nonNegativeInteger
-    ] ,
-    [ a owl:Restriction ;
       owl:onProperty prov:atTime ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ,
@@ -55,6 +55,12 @@
       owl:onProperty prov:wasRevisionOf ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] .
+
+:commitMessage a rdfs:DatatypeProperty ;
+  rdfs:comment "A message describing the commit"@en ;
+  rdfs:subPropertyOf dct:title ;
+  rdfs:domain :Commit ;
+  rdfs:range xsd:string .
 
 :previousCommit a rdfs:ObjectProperty ;
   rdfs:comment "Connects to the previous commit (or pair of commits in the case of a merge commit)"@en ;
