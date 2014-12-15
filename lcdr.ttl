@@ -1,0 +1,69 @@
+# Lucid Revision vocabulary
+#
+# Defines the Commit & Revision classes together with their expected properties.
+# The expressiveness of the language is OWL DL
+
+
+@prefix : <http://ns.lucid-project.org/revision/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Commit a owl:Class ;
+  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (inversely connected with a prov:wasGeneratedBy relationship)"@en ;
+  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
+    [ a owl:Restriction ;
+      owl:onProperty :previousCommit ;
+      owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+      owl:maxCardinality "2"^^xsd:nonNegativeInteger
+    ] .
+
+:Revision a owl:Class ;
+  rdfs:comment "Represents a modification on a specific named graph"@en ;
+  owl:unionOf (
+    [ a owl:Restriction ;
+      owl:onProperty :deltaDelete ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
+    [ a owl:Restriction ;
+      owl:onProperty :deltaInsert ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
+  ) ;
+  rdfs:subClassOf prov:Entity ,
+    [ a owl:Restriction ;
+      owl:onProperty dct:title ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty prov:atTime ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty prov:wasAssociatedWith ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ],
+    [ a owl:Restriction ;
+      owl:onProperty prov:wasGeneratedBy ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]  ,
+    [ a owl:Restriction ;
+      owl:onProperty prov:wasRevisionOf ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+:previousCommit a rdfs:ObjectProperty ;
+  rdfs:comment "Connects to the previous commit (or pair of commits in the case of a merge commit)"@en ;
+  rdfs:subPropertyOf prov:wasDerivedFrom ;
+  rdfs:domain :Commit ;
+  rdfs:range :Commit .
+
+:deltaInsert a rdfs:ObjectProperty ;
+  rdfs:comment "The IRI of the named graph containing the inserted triples of a revision (compared to its previous revision)"@en ;
+  rdfs:domain :Revision .
+
+:deltaDelete a rdfs:ObjectProperty ;
+  rdfs:comment "The IRI of the named graph containing the deleted triples of a revision (compared to its previous revision)"@en ;
+  rdfs:domain :Revision .
