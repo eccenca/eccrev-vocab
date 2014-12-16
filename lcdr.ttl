@@ -17,10 +17,10 @@
   owl:versionInfo "1.0" ;
   vann:preferredNamespacePrefix "lcdr" ;
   vann:preferredNamespaceUri "http://ns.lucid-project.org/revision/" ;
-  owl:imports <http://purl.org/dc/terms/> , <http://www.w3.org/ns/prov> ;
+  owl:imports <http://www.w3.org/ns/prov> , <http://www.w3.org/ns/prov-o-inverses> ;
   dct:description """LUCID Revision vocabulary & data model
 Defines the Commit & Revision classes together with their expected properties.
-The expressiveness of the language is OWL DL""" ;
+The expressiveness of the language is OWL DL"""@en ;
   rdfs:label "LUCID Revision Vocabulary" ;
   .
 
@@ -28,7 +28,7 @@ The expressiveness of the language is OWL DL""" ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
-  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (inversely connected with a prov:wasGeneratedBy relationship)"@en ;
+  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
   owl:disjointWith :Revision ;
   owl:equivalentClass 
@@ -39,6 +39,10 @@ The expressiveness of the language is OWL DL""" ;
     [ a owl:Restriction ;
       owl:onProperty :commitMessage ;
       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :hasRevision ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger
     ] ;
     rdfs:label "Commit" ;
     .
@@ -69,11 +73,7 @@ The expressiveness of the language is OWL DL""" ;
     [ a owl:Restriction ;
       owl:onProperty prov:wasAssociatedWith ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
-    ],
-    [ a owl:Restriction ;
-      owl:onProperty prov:wasGeneratedBy ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger
-    ]  ,
+    ] ,
     [ a owl:Restriction ;
       owl:onProperty prov:wasRevisionOf ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
@@ -90,6 +90,17 @@ The expressiveness of the language is OWL DL""" ;
   rdfs:domain :Commit ;
   rdfs:range xsd:string ;
   rdfs:label "commit message" ;
+  .
+
+:hasRevision a owl:InverseFunctionalProperty ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-16"^^xsd:date ;
+  rdfs:comment "A named graph revision belonging to the commit"@en ;
+  rdfs:subPropertyOf prov:generated ;
+  rdfs:domain :Commit ;
+  rdfs:range :Revision ;
+  rdfs:label "has revision" ;
   .
 
 :previousCommit a owl:ObjectProperty ;
