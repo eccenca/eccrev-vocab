@@ -27,7 +27,7 @@ The expressiveness of the language is OWL DL"""@en ;
 :Commit a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
   owl:disjointWith :Revision, :Branch, :Tag ;
@@ -50,7 +50,7 @@ The expressiveness of the language is OWL DL"""@en ;
 :Revision a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
   rdfs:comment "Represents a modification on a specific named graph"@en ;
   owl:disjointWith :Commit, :Branch, :Tag ;
   owl:equivalentClass 
