@@ -30,7 +30,7 @@ The expressiveness of the language is OWL DL"""@en ;
   dct:modified "2014-12-16"^^xsd:date ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
-  owl:disjointWith :Revision ;
+  owl:disjointWith :Revision, :Branch, :Tag ;
   owl:equivalentClass 
     [ a owl:Restriction ;
       owl:onProperty :previousCommit ;
@@ -52,7 +52,7 @@ The expressiveness of the language is OWL DL"""@en ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
   rdfs:comment "Represents a modification on a specific named graph"@en ;
-  owl:disjointWith :Commit ;
+  owl:disjointWith :Commit, :Branch, :Tag ;
   owl:equivalentClass 
    [  owl:unionOf (
         [ a owl:Restriction ;
@@ -79,6 +79,32 @@ The expressiveness of the language is OWL DL"""@en ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ;
     rdfs:label "Revision" ;
+    .
+
+:Branch a owl:Class ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
+  rdfs:comment "Represents a branch"@en ;
+  owl:disjointWith :Commit, :Revision, :Tag ;
+  owl:equivalentClass 
+   [ a owl:Restriction ;
+      owl:onProperty :referencesCommit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
+    .
+
+:Tag a owl:Class ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
+  rdfs:comment "Represents a tag"@en ;
+  owl:disjointWith :Commit, :Revision, :Branch ;
+  owl:equivalentClass 
+   [ a owl:Restriction ;
+      owl:onProperty :referencesCommit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
     .
 
 :commitMessage a owl:DatatypeProperty ;
@@ -130,6 +156,19 @@ The expressiveness of the language is OWL DL"""@en ;
   rdfs:comment "The IRI of the named graph containing the deleted triples of a revision (compared to its previous revision)"@en ;
   rdfs:domain :Revision ;
   rdfs:label "delete delta" ;
+  .
+
+:referencesCommit a owl:ObjectProperty ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
+  rdfs:comment "The commit to which this branch or tag references"@en ;
+  rdfs:domain 
+  [
+    owl:unionOf (:Branch :Tag) ;
+  ] ;
+  rdfs:range :Commit ;
+  rdfs:label "references commit" ;
   .
 
 :sha256 a owl:DatatypeProperty ;
