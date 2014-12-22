@@ -131,4 +131,13 @@ The expressiveness of the language is OWL DL"""@en ;
   rdfs:domain :Revision ;
   rdfs:label "delete delta" ;
   .
-  
+
+:sha256 a owl:DatatypeProperty ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-19"^^xsd:date ;
+  dct:modified "2014-12-19"^^xsd:date ;
+  rdfs:comment "A sha256 digest of a commit. TODO reference algorithm specification (sha256 on canonical serialization using RDF NC14)"@en ;
+  rdfs:domain :Commit ;
+  rdfs:range xsd:base64Binary ; 
+  rdfs:label "sha256" ;
+  .
