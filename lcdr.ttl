@@ -10,14 +10,14 @@
   dct:title "LCDR: The LUCID vocabulary for describing RDF changes and revisions"@en ;
   dct:rights "Copyright © 2014 eccenca GmbH" ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
   dct:publisher <https://ns.eccenca.com/GmbH> ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
   owl:versionInfo "1.0" ;
   vann:preferredNamespacePrefix "lcdr" ;
   vann:preferredNamespaceUri "http://ns.lucid-project.org/revision/" ;
-  owl:imports <http://www.w3.org/ns/prov> , <http://www.w3.org/ns/prov-o-inverses> ;
+  owl:imports <http://www.w3.org/ns/prov> ;
   dct:description """LUCID Revision vocabulary & data model
 Defines the Commit & Revision classes together with their expected properties.
 The expressiveness of the language is OWL DL"""@en ;
@@ -27,34 +27,41 @@ The expressiveness of the language is OWL DL"""@en ;
 :Commit a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
   owl:disjointWith :Revision, :Branch, :Tag ;
   owl:equivalentClass 
-    [ a owl:Restriction ;
-      owl:onProperty :previousCommit ;
-      owl:maxCardinality "2"^^xsd:nonNegativeInteger
-    ] ,
-    [ a owl:Restriction ;
-      owl:onProperty :commitMessage ;
-      owl:maxCardinality "1"^^xsd:nonNegativeInteger
-    ] ,
-    [ a owl:Restriction ;
-      owl:onProperty :hasRevision ;
-      owl:minCardinality "1"^^xsd:nonNegativeInteger
-    ] ;
+   [  owl:intersectionOf (
+	    [ a owl:Restriction ;
+	      owl:onProperty :previousCommit ;
+	      owl:maxCardinality "2"^^xsd:nonNegativeInteger
+	    ]
+	    [ a owl:Restriction ;
+	      owl:onProperty :commitAuthor ;
+	      owl:cardinality "1"^^xsd:nonNegativeInteger
+	    ]
+	    [ a owl:Restriction ;
+	      owl:onProperty :commitMessage ;
+	      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+	    ]
+	    [ a owl:Restriction ;
+	      owl:onProperty :hasRevision ;
+	      owl:minCardinality "1"^^xsd:nonNegativeInteger
+	    ]
+      )
+   ] ;
     rdfs:label "Commit" ;
     .
 
 :Revision a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
   rdfs:comment "Represents a modification on a specific named graph"@en ;
   owl:disjointWith :Commit, :Branch, :Tag ;
   owl:equivalentClass 
-   [  owl:unionOf (
+   [  owl:intersectionOf (
         [ a owl:Restriction ;
           owl:onProperty :deltaDelete ;
           owl:cardinality "1"^^xsd:nonNegativeInteger
@@ -71,11 +78,7 @@ The expressiveness of the language is OWL DL"""@en ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ,
     [ a owl:Restriction ;
-      owl:onProperty prov:wasAssociatedWith ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger
-    ] ,
-    [ a owl:Restriction ;
-      owl:onProperty prov:wasRevisionOf ;
+      owl:onProperty :hasRevisionGraph ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ;
     rdfs:label "Revision" ;
@@ -118,7 +121,17 @@ The expressiveness of the language is OWL DL"""@en ;
   rdfs:label "commit message" ;
   .
 
-:hasRevision a owl:InverseFunctionalProperty ;
+:commitAuthor a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
+  rdfs:comment "The author of the commit"@en ;
+  rdfs:subPropertyOf prov:wasAssociatedWith ;
+  rdfs:domain :Commit ;
+  rdfs:label "commit author" ;
+  .
+
+:hasRevision a owl:ObjectProperty, owl:InverseFunctionalProperty ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-16"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
@@ -127,6 +140,18 @@ The expressiveness of the language is OWL DL"""@en ;
   rdfs:domain :Commit ;
   rdfs:range :Revision ;
   rdfs:label "has revision" ;
+  .
+
+
+:hasRevisionGraph a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
+  rdfs:comment "The named graph the revision refers to"@en ;
+  rdfs:subPropertyOf prov:wasRevisionOf ;
+  rdfs:domain :Revision ;
+#  rdfs:range sd:NamedGraph ;
+  rdfs:label "has revision graph" ;
   .
 
 :previousCommit a owl:ObjectProperty ;
