@@ -1,23 +1,23 @@
 @prefix : <http://ns.lucid-project.org/revision/> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix dct: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 : a owl:Ontology ;
   dct:title "LCDR: The LUCID vocabulary for describing RDF changes and revisions"@en ;
   dct:rights "Copyright © 2014 eccenca GmbH" ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   dct:publisher <https://ns.eccenca.com/GmbH> ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
-  owl:versionInfo "1.0" ;
+  owl:versionInfo "2.0-SNAPSHOT" ;
   vann:preferredNamespacePrefix "lcdr" ;
   vann:preferredNamespaceUri "http://ns.lucid-project.org/revision/" ;
-  owl:imports <http://www.w3.org/ns/prov> ;
+#  owl:imports <http://www.w3.org/ns/prov>, <http://purl.org/dc/terms> ;
   dct:description """LUCID Revision vocabulary & data model
 Defines the Commit & Revision classes together with their expected properties.
 The expressiveness of the language is OWL DL"""@en ;
@@ -27,52 +27,44 @@ The expressiveness of the language is OWL DL"""@en ;
 :Commit a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
-  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ;
   owl:disjointWith :Revision, :Branch, :Tag ;
-  owl:equivalentClass 
-   [  owl:intersectionOf (
-	    [ a owl:Restriction ;
-	      owl:onProperty :previousCommit ;
-	      owl:maxCardinality "2"^^xsd:nonNegativeInteger
-	    ]
-	    [ a owl:Restriction ;
-	      owl:onProperty :commitAuthor ;
-	      owl:cardinality "1"^^xsd:nonNegativeInteger
-	    ]
-	    [ a owl:Restriction ;
-	      owl:onProperty :commitMessage ;
-	      owl:maxCardinality "1"^^xsd:nonNegativeInteger
-	    ]
-	    [ a owl:Restriction ;
-	      owl:onProperty :hasRevision ;
-	      owl:minCardinality "1"^^xsd:nonNegativeInteger
-	    ]
-      )
-   ] ;
-    rdfs:label "Commit" ;
+  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
+    [ a owl:Restriction ;
+      owl:onProperty :previousCommit ;
+      owl:maxCardinality "2"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitAuthor ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitMessage ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :hasRevision ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+  rdfs:label "Commit" ;
     .
 
 :Revision a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "Represents a modification on a specific named graph"@en ;
   owl:disjointWith :Commit, :Branch, :Tag ;
-  owl:equivalentClass 
-   [  owl:intersectionOf (
-        [ a owl:Restriction ;
-          owl:onProperty :deltaDelete ;
-          owl:cardinality "1"^^xsd:nonNegativeInteger
-        ]
-        [ a owl:Restriction ;
-          owl:onProperty :deltaInsert ;
-          owl:cardinality "1"^^xsd:nonNegativeInteger
-        ]
-      )
-   ] ;
   rdfs:subClassOf prov:Entity ,
+    [ a owl:Restriction ;
+      owl:onProperty :deltaDelete ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :deltaInsert ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
     [ a owl:Restriction ;
       owl:onProperty prov:atTime ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
@@ -81,17 +73,17 @@ The expressiveness of the language is OWL DL"""@en ;
       owl:onProperty :hasRevisionGraph ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ;
-    rdfs:label "Revision" ;
+  rdfs:label "Revision" ;
     .
 
 :Branch a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
-  dct:modified "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "Represents a branch"@en ;
   owl:disjointWith :Commit, :Revision, :Tag ;
-  owl:equivalentClass 
-   [ a owl:Restriction ;
+  rdfs:subClassOf
+    [ a owl:Restriction ;
       owl:onProperty :referencesCommit ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ]
@@ -100,11 +92,11 @@ The expressiveness of the language is OWL DL"""@en ;
 :Tag a owl:Class ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
-  dct:modified "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "Represents a tag"@en ;
   owl:disjointWith :Commit, :Revision, :Branch ;
-  owl:equivalentClass 
-   [ a owl:Restriction ;
+  rdfs:subClassOf
+    [ a owl:Restriction ;
       owl:onProperty :referencesCommit ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ]
@@ -113,18 +105,17 @@ The expressiveness of the language is OWL DL"""@en ;
 :commitMessage a owl:DatatypeProperty ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "A message describing the commit"@en ;
-  rdfs:subPropertyOf dct:title ;
   rdfs:domain :Commit ;
   rdfs:range xsd:string ;
   rdfs:label "commit message" ;
   .
 
-:commitAuthor a owl:ObjectProperty, owl:FunctionalProperty ;
+:commitAuthor a owl:ObjectProperty ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-29"^^xsd:date ;
-  dct:modified "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
   rdfs:comment "The author of the commit"@en ;
   rdfs:subPropertyOf prov:wasAssociatedWith ;
   rdfs:domain :Commit ;
@@ -205,3 +196,84 @@ The expressiveness of the language is OWL DL"""@en ;
   rdfs:range xsd:base64Binary ; 
   rdfs:label "sha256" ;
   .
+
+#
+# External vocabulary usage
+#
+# Importing the required ontologies leads to non-conformance with the OWL 2 DL
+# profile. Therefore, their classes and properties are declared with a reference
+# to the original ontology that defined them. 
+#
+
+<http://creativecommons.org/ns#license>
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://creativecommons.org/ns> .
+
+dct:creator
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:description
+    a owl:AnnotationProperty;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:issued
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:modified
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:rights
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:title
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:publisher
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+prov:Activity
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:Entity
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:InstantaneousEvent
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:atTime
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:generated
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasAssociatedWith
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasDerivedFrom
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasRevisionOf
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+vann:preferredNamespacePrefix
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/vocab/vann/> .
+
+vann:preferredNamespaceUri
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/vocab/vann/> .
