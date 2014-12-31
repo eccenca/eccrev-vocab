@@ -10,7 +10,7 @@
   dct:title "LCDR: The LUCID vocabulary for describing RDF changes and revisions"@en ;
   dct:rights "Copyright © 2014 eccenca GmbH" ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-30"^^xsd:date ;
+  dct:modified "2014-12-31"^^xsd:date ;
   dct:publisher <https://ns.eccenca.com/GmbH> ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
@@ -20,7 +20,8 @@
 #  owl:imports <http://www.w3.org/ns/prov>, <http://purl.org/dc/terms> ;
   dct:description """LUCID Revision vocabulary & data model
 Defines the Commit & Revision classes together with their expected properties.
-The expressiveness of the language is OWL DL"""@en ;
+
+The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile. Therefore, their classes and properties are declared with a reference to the original ontology that defined them."""@en ;
   rdfs:label "LUCID Revision Vocabulary" ;
   .
 
@@ -202,7 +203,10 @@ The expressiveness of the language is OWL DL"""@en ;
 #
 # Importing the required ontologies leads to non-conformance with the OWL 2 DL
 # profile. Therefore, their classes and properties are declared with a reference
-# to the original ontology that defined them. 
+# to the original ontology that defined them.
+#
+# Take a look at this question for a better overview on the topic: 
+# http://answers.semanticweb.com/questions/1105/owl-dl-compliance-why-redefining-existing-conceptspropeties-in-own-ontology
 #
 
 <http://creativecommons.org/ns#license>
