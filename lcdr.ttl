@@ -19,9 +19,8 @@
   vann:preferredNamespaceUri "http://ns.lucid-project.org/revision/" ;
 #  owl:imports <http://www.w3.org/ns/prov>, <http://purl.org/dc/terms> ;
   dct:description """LUCID Revision vocabulary & data model
-Defines the Commit & Revision classes together with their expected properties.
-
-The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile. Therefore, their classes and properties are declared with a reference to the original ontology that defined them."""@en ;
+Defines the Commit & Revision classes together with their expected properties."""@en ;
+  rdfs:comment "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them." ;
   rdfs:label "LUCID Revision Vocabulary" ;
   .
 
