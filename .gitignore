@@ -1,3 +1,4 @@
+*.trig
 .classpath
 .gradle*
 .idea
