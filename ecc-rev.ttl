@@ -1,4 +1,4 @@
-@prefix : <http://ns.lucid-project.org/revision/> .
+@prefix : <https://vocab.eccenca.com/revision/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -7,7 +7,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 
 : a owl:Ontology ;
-  dct:title "LCDR: The LUCID vocabulary for describing RDF changes and revisions"@en ;
+  dct:title "ecc-rev: RDF changes and revisions vocabulary"@en ;
   dct:rights "Copyright © 2014 eccenca GmbH" ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-31"^^xsd:date ;
@@ -15,11 +15,12 @@
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
   owl:versionInfo "2.0-SNAPSHOT" ;
-  vann:preferredNamespacePrefix "lcdr" ;
-  vann:preferredNamespaceUri "http://ns.lucid-project.org/revision/" ;
+  vann:preferredNamespacePrefix "ecc-rev" ;
+  vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
 #  owl:imports <http://www.w3.org/ns/prov>, <http://purl.org/dc/terms> ;
-  dct:description """LUCID Revision vocabulary & data model
-Defines the Commit & Revision classes together with their expected properties."""@en ;
+  dct:description """Revision vocabulary: A vocabulary & data model for describing RDF changes and revisions 
+Defines the Commit & Revision classes together with their expected properties.
+This vocabulary is a work in progress developed by eccenca GmbH in the context of the LUCID project (http://lucid-project.org/)"""@en ;
   rdfs:comment "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them." ;
   rdfs:label "LUCID Revision Vocabulary" ;
   .
