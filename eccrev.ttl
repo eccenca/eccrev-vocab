@@ -7,17 +7,16 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 
 : a owl:Ontology ;
-  dct:title "ecc-rev: RDF changes and revisions vocabulary"@en ;
-  dct:rights "Copyright © 2014 eccenca GmbH" ;
+  dct:title "eccrev: RDF changes and revisions vocabulary"@en ;
+  dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2014-12-31"^^xsd:date ;
+  dct:modified "2015-06-23"^^xsd:date ;
   dct:publisher <https://ns.eccenca.com/GmbH> ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
   owl:versionInfo "2.0-SNAPSHOT" ;
-  vann:preferredNamespacePrefix "ecc-rev" ;
+  vann:preferredNamespacePrefix "eccrev" ;
   vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
-#  owl:imports <http://www.w3.org/ns/prov>, <http://purl.org/dc/terms> ;
   dct:description """Revision vocabulary: A vocabulary & data model for describing RDF changes and revisions 
 Defines the Commit & Revision classes together with their expected properties.
 This vocabulary is a work in progress developed by eccenca GmbH in the context of the LUCID project (http://lucid-project.org/)"""@en ;
@@ -135,6 +134,7 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
   .
 
 
+#  to discuss: rdfs:range sd:NamedGraph ;
 :hasRevisionGraph a owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-29"^^xsd:date ;
@@ -142,7 +142,6 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
   rdfs:comment "The named graph the revision refers to"@en ;
   rdfs:subPropertyOf prov:wasRevisionOf ;
   rdfs:domain :Revision ;
-#  rdfs:range sd:NamedGraph ;
   rdfs:label "has revision graph" ;
   .
 
