@@ -75,7 +75,7 @@
     .
 
 :Branch a owl:Class ;
-  rdfs:label "Tag"@en;
+  rdfs:label "Branch"@en;
   rdfs:comment "Represents a branch"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
