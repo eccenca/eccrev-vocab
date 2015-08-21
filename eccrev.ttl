@@ -7,28 +7,27 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 
 : a owl:Ontology ;
-  dct:title "eccrev: RDF changes and revisions vocabulary"@en ;
-  dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
+  rdfs:label "eccrev: RDF changes and revisions vocabulary"@en ;
+  rdfs:comment "A vocabulary & data model for describing RDF changes and revisions. It defines the Commit & Revision classes together with their expected properties."@en ;
+  rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2015-06-23"^^xsd:date ;
+  owl:versionInfo "SNAPSHOT" ;
+  dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
   dct:publisher <https://ns.eccenca.com/GmbH> ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
-  dct:creator <https://ns.eccenca.com/People/RubenNavarroPiris>, <https://ns.eccenca.com/People/SebastianTramp> ;
-  owl:versionInfo "2.0-SNAPSHOT" ;
+  dct:creator <https://ns.eccenca.com/rnavarropiris>, <https://ns.eccenca.com/stramp> ;
   vann:preferredNamespacePrefix "eccrev" ;
   vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
-  dct:description """Revision vocabulary: A vocabulary & data model for describing RDF changes and revisions 
-Defines the Commit & Revision classes together with their expected properties.
-This vocabulary is a work in progress developed by eccenca GmbH in the context of the LUCID project (http://lucid-project.org/)"""@en ;
-  rdfs:comment "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them." ;
-  rdfs:label "LUCID Revision Vocabulary" ;
-  .
+  vann:usageNote "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them."@en ;
+.
 
 :Commit a owl:Class ;
+  rdfs:label "Commit"@en ;
+  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   owl:disjointWith :Revision, :Branch, :Tag ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
     [ a owl:Restriction ;
@@ -47,14 +46,14 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
       owl:onProperty :hasRevision ;
       owl:minCardinality "1"^^xsd:nonNegativeInteger
     ] ;
-  rdfs:label "Commit" ;
     .
 
 :Revision a owl:Class ;
+  rdfs:label "Revision"@en ;
+  rdfs:comment "Represents a modification on a specific named graph"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "Represents a modification on a specific named graph"@en ;
   owl:disjointWith :Commit, :Branch, :Tag ;
   rdfs:subClassOf prov:Entity ,
     [ a owl:Restriction ;
@@ -73,14 +72,14 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
       owl:onProperty :hasRevisionGraph ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
     ] ;
-  rdfs:label "Revision" ;
     .
 
 :Branch a owl:Class ;
+  rdfs:label "Tag"@en;
+  rdfs:comment "Represents a branch"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "Represents a branch"@en ;
   owl:disjointWith :Commit, :Revision, :Tag ;
   rdfs:subClassOf
     [ a owl:Restriction ;
@@ -90,10 +89,11 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
     .
 
 :Tag a owl:Class ;
+  rdfs:label "Tag"@en;
+  rdfs:comment "Represents a tag"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "Represents a tag"@en ;
   owl:disjointWith :Commit, :Revision, :Branch ;
   rdfs:subClassOf
     [ a owl:Restriction ;
@@ -103,98 +103,98 @@ This vocabulary is a work in progress developed by eccenca GmbH in the context o
     .
 
 :commitMessage a owl:DatatypeProperty ;
+  rdfs:label "commit message"@en ;
+  rdfs:comment "A message describing the commit"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "A message describing the commit"@en ;
   rdfs:domain :Commit ;
   rdfs:range xsd:string ;
-  rdfs:label "commit message" ;
   .
 
 :commitAuthor a owl:ObjectProperty ;
+  rdfs:label "commit author"@en ;
+  rdfs:comment "The author of the commit"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-29"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  rdfs:comment "The author of the commit"@en ;
   rdfs:subPropertyOf prov:wasAssociatedWith ;
   rdfs:domain :Commit ;
-  rdfs:label "commit author" ;
   .
 
 :hasRevision a owl:ObjectProperty, owl:InverseFunctionalProperty ;
+  rdfs:label "has revision"@en ;
+  rdfs:comment "A named graph revision belonging to the commit"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-16"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
-  rdfs:comment "A named graph revision belonging to the commit"@en ;
   rdfs:subPropertyOf prov:generated ;
   rdfs:domain :Commit ;
   rdfs:range :Revision ;
-  rdfs:label "has revision" ;
   .
 
 
 #  to discuss: rdfs:range sd:NamedGraph ;
 :hasRevisionGraph a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "has revision graph"@en ;
+  rdfs:comment "The named graph the revision refers to"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-29"^^xsd:date ;
   dct:modified "2014-12-29"^^xsd:date ;
-  rdfs:comment "The named graph the revision refers to"@en ;
   rdfs:subPropertyOf prov:wasRevisionOf ;
   rdfs:domain :Revision ;
-  rdfs:label "has revision graph" ;
   .
 
 :previousCommit a owl:ObjectProperty ;
   rdfs:isDefinedBy : ;
+  rdfs:label "previous commit"@en ;
+  rdfs:comment "Connects to the previous commit (or pair of commits in the case of a merge commit)"@en ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
-  rdfs:comment "Connects to the previous commit (or pair of commits in the case of a merge commit)"@en ;
   rdfs:subPropertyOf prov:wasDerivedFrom ;
   rdfs:domain :Commit ;
   rdfs:range :Commit ;
-  rdfs:label "previous commit" ;
   .
 
 :deltaInsert a owl:ObjectProperty ;
+  rdfs:label "insert delta"@en ;
+  rdfs:comment "The IRI of the named graph containing the inserted triples of a revision (compared to its previous revision)"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
-  rdfs:comment "The IRI of the named graph containing the inserted triples of a revision (compared to its previous revision)"@en ;
   rdfs:domain :Revision ;
-  rdfs:label "insert delta" ;
   .
 
 :deltaDelete a owl:ObjectProperty ;
+  rdfs:label "delete delta"@en ;
+  rdfs:comment "The IRI of the named graph containing the deleted triples of a revision (compared to its previous revision)"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-16"^^xsd:date ;
-  rdfs:comment "The IRI of the named graph containing the deleted triples of a revision (compared to its previous revision)"@en ;
   rdfs:domain :Revision ;
-  rdfs:label "delete delta" ;
   .
 
 :referencesCommit a owl:ObjectProperty ;
+  rdfs:label "references commit"@en ;
+  rdfs:comment "The commit to which this branch or tag references"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
   dct:modified "2014-12-22"^^xsd:date ;
-  rdfs:comment "The commit to which this branch or tag references"@en ;
   rdfs:domain 
   [
     owl:unionOf (:Branch :Tag) ;
   ] ;
   rdfs:range :Commit ;
-  rdfs:label "references commit" ;
   .
 
 :sha256 a owl:DatatypeProperty ;
+  rdfs:label "sha256 digest"@en ;
+  rdfs:comment "A sha256 digest of a commit. TODO reference algorithm specification (sha256 on canonical serialization using RDF NC14)"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-19"^^xsd:date ;
   dct:modified "2014-12-19"^^xsd:date ;
-  rdfs:comment "A sha256 digest of a commit. TODO reference algorithm specification (sha256 on canonical serialization using RDF NC14)"@en ;
   rdfs:domain :Commit ;
   rdfs:range xsd:base64Binary ; 
-  rdfs:label "sha256" ;
   .
 
 #
