@@ -189,7 +189,8 @@
 
 :sha256 a owl:DatatypeProperty ;
   rdfs:label "sha256 digest"@en ;
-  rdfs:comment "A sha256 digest of a commit. TODO reference algorithm specification (sha256 on canonical serialization using RDF NC14)"@en ;
+  rdfs:comment "A sha256 digest of a commit based on the RDF NC14 algorithm described in \"Signing RDF Graphs\" by Jeremy J. Carroll (DOI: 10.1007/F978-3-540-39718-2_24)."@en ;
+  rdfs:seeAlso <http://link.springer.com/chapter/10.1007%2F978-3-540-39718-2_24> ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-19"^^xsd:date ;
   dct:modified "2014-12-19"^^xsd:date ;
