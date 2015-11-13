@@ -7,18 +7,24 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
 
 : a owl:Ontology ;
   rdfs:label "eccrev: RDF changes and revisions vocabulary"@en ;
   rdfs:comment "A vocabulary & data model for describing RDF changes and revisions. It defines the Commit & Revision classes together with their expected properties."@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2015-06-23"^^xsd:date ;
+  dct:modified "2015-11-13"^^xsd:date ;
   owl:versionInfo "SNAPSHOT" ;
   dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
-  dct:publisher ecc:GmbH ;
+  dct:publisher ecc:eccenca-GmbH ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator ecc:rnavarropiris, ecc:stramp ;
+  void:vocabulary
+    <http://purl.org/dc/terms/> ,
+    <http://purl.org/vocab/vann/> ,
+    <http://www.w3.org/ns/prov#> ,
+    <http://xmlns.com/foaf/0.1/> ;
   vann:preferredNamespacePrefix "eccrev" ;
   vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
   vann:usageNote "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them."@en ;
@@ -30,9 +36,10 @@ ecc:rnavarropiris a foaf:Person ;
 ecc:stramp a foaf:Person ;
   foaf:name "Sebastian Tramp" ;
 .
-ecc:GmbH a foaf:Organization ;
+ecc:eccenca-GmbH a foaf:Organization ;
   foaf:name "eccenca GmbH" ;
 .
+<http://creativecommons.org/licenses/by/3.0/> rdfs:label "Creative Commons Attribution 3.0 Unported" .
 
 :Commit a owl:Class ;
   rdfs:label "Commit"@en ;
