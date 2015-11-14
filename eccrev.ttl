@@ -15,7 +15,7 @@
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2015-11-13"^^xsd:date ;
-  owl:versionInfo "SNAPSHOT" ;
+  owl:versionInfo "v1.0.0" ;
   dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
   dct:publisher ecc:eccenca-GmbH ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
