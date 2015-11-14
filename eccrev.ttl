@@ -1,0 +1,302 @@
+@prefix : <https://vocab.eccenca.com/revision/> .
+@prefix ecc: <https://ns.eccenca.com/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+
+: a owl:Ontology ;
+  rdfs:label "eccrev: RDF changes and revisions vocabulary"@en ;
+  rdfs:comment "A vocabulary & data model for describing RDF changes and revisions. It defines the Commit & Revision classes together with their expected properties."@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2015-11-13"^^xsd:date ;
+  owl:versionInfo "v1.0.0" ;
+  dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
+  dct:publisher ecc:eccenca-GmbH ;
+  <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
+  dct:creator ecc:rnavarropiris, ecc:stramp ;
+  void:vocabulary
+    <http://purl.org/dc/terms/> ,
+    <http://purl.org/vocab/vann/> ,
+    <http://www.w3.org/ns/prov#> ,
+    <http://xmlns.com/foaf/0.1/> ;
+  vann:preferredNamespacePrefix "eccrev" ;
+  vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
+  vann:usageNote "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them."@en ;
+.
+
+ecc:rnavarropiris a foaf:Person ;
+  foaf:name "Ruben Navarro Piris" ;
+.
+ecc:stramp a foaf:Person ;
+  foaf:name "Sebastian Tramp" ;
+.
+ecc:eccenca-GmbH a foaf:Organization ;
+  foaf:name "eccenca GmbH" ;
+.
+<http://creativecommons.org/licenses/by/3.0/> rdfs:label "Creative Commons Attribution 3.0 Unported" .
+
+:Commit a owl:Class ;
+  rdfs:label "Commit"@en ;
+  rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  owl:disjointWith :Revision, :Branch, :Tag ;
+  rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
+    [ a owl:Restriction ;
+      owl:onProperty :previousCommit ;
+      owl:maxCardinality "2"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitAuthor ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitMessage ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :hasRevision ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    .
+
+:Revision a owl:Class ;
+  rdfs:label "Revision"@en ;
+  rdfs:comment "Represents a modification on a specific named graph"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  owl:disjointWith :Commit, :Branch, :Tag ;
+  rdfs:subClassOf prov:Entity ,
+    [ a owl:Restriction ;
+      owl:onProperty :deltaDelete ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :deltaInsert ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty prov:atTime ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :hasRevisionGraph ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    .
+
+:Branch a owl:Class ;
+  rdfs:label "Branch"@en;
+  rdfs:comment "Represents a branch"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  owl:disjointWith :Commit, :Revision, :Tag ;
+  rdfs:subClassOf
+    [ a owl:Restriction ;
+      owl:onProperty :referencesCommit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
+    .
+
+:Tag a owl:Class ;
+  rdfs:label "Tag"@en;
+  rdfs:comment "Represents a tag"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  owl:disjointWith :Commit, :Revision, :Branch ;
+  rdfs:subClassOf
+    [ a owl:Restriction ;
+      owl:onProperty :referencesCommit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ]
+    .
+
+:commitMessage a owl:DatatypeProperty ;
+  rdfs:label "commit message"@en ;
+  rdfs:comment "A message describing the commit"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  rdfs:domain :Commit ;
+  rdfs:range xsd:string ;
+  .
+
+:commitAuthor a owl:ObjectProperty ;
+  rdfs:label "commit author"@en ;
+  rdfs:comment "The author of the commit"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-30"^^xsd:date ;
+  rdfs:subPropertyOf prov:wasAssociatedWith ;
+  rdfs:domain :Commit ;
+  .
+
+:hasRevision a owl:ObjectProperty, owl:InverseFunctionalProperty ;
+  rdfs:label "has revision"@en ;
+  rdfs:comment "A named graph revision belonging to the commit"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-16"^^xsd:date ;
+  dct:modified "2014-12-16"^^xsd:date ;
+  rdfs:subPropertyOf prov:generated ;
+  rdfs:domain :Commit ;
+  rdfs:range :Revision ;
+  .
+
+
+#  to discuss: rdfs:range sd:NamedGraph ;
+:hasRevisionGraph a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "has revision graph"@en ;
+  rdfs:comment "The named graph the revision refers to"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-29"^^xsd:date ;
+  dct:modified "2014-12-29"^^xsd:date ;
+  rdfs:subPropertyOf prov:wasRevisionOf ;
+  rdfs:domain :Revision ;
+  .
+
+:previousCommit a owl:ObjectProperty ;
+  rdfs:isDefinedBy : ;
+  rdfs:label "previous commit"@en ;
+  rdfs:comment "Connects to the previous commit (or pair of commits in the case of a merge commit)"@en ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-16"^^xsd:date ;
+  rdfs:subPropertyOf prov:wasDerivedFrom ;
+  rdfs:domain :Commit ;
+  rdfs:range :Commit ;
+  .
+
+:deltaInsert a owl:ObjectProperty ;
+  rdfs:label "insert delta"@en ;
+  rdfs:comment "The IRI of the named graph containing the inserted triples of a revision (compared to its previous revision)"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-16"^^xsd:date ;
+  rdfs:domain :Revision ;
+  .
+
+:deltaDelete a owl:ObjectProperty ;
+  rdfs:label "delete delta"@en ;
+  rdfs:comment "The IRI of the named graph containing the deleted triples of a revision (compared to its previous revision)"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-15"^^xsd:date ;
+  dct:modified "2014-12-16"^^xsd:date ;
+  rdfs:domain :Revision ;
+  .
+
+:referencesCommit a owl:ObjectProperty ;
+  rdfs:label "references commit"@en ;
+  rdfs:comment "The commit to which this branch or tag references"@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-22"^^xsd:date ;
+  dct:modified "2014-12-22"^^xsd:date ;
+  rdfs:domain 
+  [
+    owl:unionOf (:Branch :Tag) ;
+  ] ;
+  rdfs:range :Commit ;
+  .
+
+:sha256 a owl:DatatypeProperty ;
+  rdfs:label "sha256 digest"@en ;
+  rdfs:comment "A sha256 digest of a commit based on the RDF NC14 algorithm described in \"Signing RDF Graphs\" by Jeremy J. Carroll (DOI: 10.1007/F978-3-540-39718-2_24)."@en ;
+  rdfs:seeAlso <http://link.springer.com/chapter/10.1007%2F978-3-540-39718-2_24> ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2014-12-19"^^xsd:date ;
+  dct:modified "2014-12-19"^^xsd:date ;
+  rdfs:domain :Commit ;
+  rdfs:range xsd:base64Binary ; 
+  .
+
+#
+# External vocabulary usage
+#
+# Importing the required ontologies leads to non-conformance with the OWL 2 DL
+# profile. Therefore, their classes and properties are declared with a reference
+# to the original ontology that defined them.
+#
+# Take a look at this question for a better overview on the topic: 
+# http://answers.semanticweb.com/questions/1105/owl-dl-compliance-why-redefining-existing-conceptspropeties-in-own-ontology
+#
+
+<http://creativecommons.org/ns#license>
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://creativecommons.org/ns> .
+
+dct:creator
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:description
+    a owl:AnnotationProperty;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:issued
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:modified
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:rights
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:title
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+dct:publisher
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+prov:Activity
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:Entity
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:InstantaneousEvent
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:atTime
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:generated
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasAssociatedWith
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasDerivedFrom
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+prov:wasRevisionOf
+    a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> .
+
+vann:preferredNamespacePrefix
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/vocab/vann/> .
+
+vann:preferredNamespaceUri
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://purl.org/vocab/vann/> .

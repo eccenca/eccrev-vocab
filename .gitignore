@@ -1,11 +1,1 @@
-*.trig
-.classpath
-.gradle*
-.idea
-.settings
-.springBeans
-*~
-build/
-bin/
-WebContent/
-*.pyc
+.all.ttl
