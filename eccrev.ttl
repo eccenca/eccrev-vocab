@@ -8,6 +8,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix void: <http://rdfs.org/ns/void#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
 
 : a owl:Ontology ;
   rdfs:label "eccrev: RDF changes and revisions vocabulary"@en ;
@@ -28,6 +29,11 @@
   vann:preferredNamespacePrefix "eccrev" ;
   vann:preferredNamespaceUri "https://vocab.eccenca.com/revision/" ;
   vann:usageNote "The expressiveness of the vocabulary is compliant with the OWL 2 DL profile, but in order to achieve this, used ontologies (dct, prov, vann) are not directly imported (since that leads to non-conformance with the OWL 2 DL profile). Instead, their classes and properties are declared (with the corresponding necessary OWL property type) with a reference to the original ontology that defined them."@en ;
+  doap:homepage <https://github.com/eccenca/eccrev-vocab> ;
+  doap:bug-database <https://github.com/eccenca/eccrev-vocab/issues> ;
+  doap:download-page <https://github.com/eccenca/eccrev-vocab/releases> ;
+  doap:wiki <https://github.com/eccenca/eccrev-vocab/wiki> ;
+  doap:repository <https://github.com/eccenca/eccrev-vocab.git> ;
 .
 
 ecc:rnavarropiris a foaf:Person ;
