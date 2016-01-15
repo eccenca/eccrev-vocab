@@ -14,9 +14,9 @@
   rdfs:comment "A vocabulary & data model for describing RDF changes and revisions. It defines the Commit & Revision classes together with their expected properties."@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2015-11-13"^^xsd:date ;
+  dct:modified "2016-01-15"^^xsd:date ;
   owl:versionInfo "SNAPSHOT" ;
-  dct:rights "Copyright © 2014 - 2015 eccenca GmbH" ;
+  dct:rights "Copyright © 2014 - 2016 eccenca GmbH" ;
   dct:publisher ecc:eccenca-GmbH ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
   dct:creator ecc:rnavarropiris, ecc:stramp ;
@@ -31,7 +31,7 @@
 .
 
 ecc:rnavarropiris a foaf:Person ;
-  foaf:name "Ruben Navarro Piris" ;
+  foaf:name "Rubén Navarro Piris" ;
 .
 ecc:stramp a foaf:Person ;
   foaf:name "Sebastian Tramp" ;
