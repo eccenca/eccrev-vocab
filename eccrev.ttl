@@ -36,13 +36,13 @@
   doap:repository <https://github.com/eccenca/eccrev-vocab.git> ;
 .
 
-ecc:rnavarropiris a dct:Agent ;
+ecc:rnavarropiris a foaf:Person, dct:Agent ;
   foaf:name "Rubén Navarro Piris" ;
 .
-ecc:stramp a dct:Agent ;
+ecc:stramp a foaf:Person, dct:Agent ;
   foaf:name "Sebastian Tramp" ;
 .
-ecc:eccenca-GmbH a foaf:Organization ;
+ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   foaf:name "eccenca GmbH" ;
 .
 <http://creativecommons.org/licenses/by/3.0/> rdfs:label "Creative Commons Attribution 3.0 Unported" .
