@@ -23,7 +23,6 @@
   dct:creator ecc:rnavarropiris, ecc:stramp ;
   void:vocabulary
     <http://purl.org/dc/terms/> ,
-    <http://rdfs.org/ns/void#> ,
     <http://purl.org/vocab/vann/> ,
     <http://www.w3.org/ns/prov#> ,
     <http://xmlns.com/foaf/0.1/> ;
