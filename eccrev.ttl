@@ -9,18 +9,20 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix void: <http://rdfs.org/ns/void#> .
 @prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
 
-: a owl:Ontology ;
+: a owl:Ontology , voaf:Vocabulary ;
   rdfs:label "eccrev: RDF changes and revisions vocabulary"@en ;
   rdfs:comment "A vocabulary & data model for describing RDF changes and revisions. It defines the Commit & Revision classes together with their expected properties."@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
-  dct:modified "2016-01-15"^^xsd:date ;
+  dct:modified "2016-03-11"^^xsd:date ;
   owl:versionInfo "SNAPSHOT" ;
   dct:rights "Copyright © 2014 - 2016 eccenca GmbH" ;
   dct:publisher ecc:eccenca-GmbH ;
   <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
-  dct:creator ecc:rnavarropiris, ecc:stramp ;
+  dct:creator ecc:rnavarropiris, <http://sebastian.tramp.name> ;
+  dct:contributor <http://aksw.org/MarvinFrommhold> ;
   void:vocabulary
     <http://purl.org/dc/terms/> ,
     <http://purl.org/vocab/vann/> ,
@@ -39,8 +41,11 @@
 ecc:rnavarropiris a foaf:Person, dct:Agent ;
   foaf:name "Rubén Navarro Piris" ;
 .
-ecc:stramp a foaf:Person, dct:Agent ;
+<http://sebastian.tramp.name> a foaf:Person, dct:Agent ;
   foaf:name "Sebastian Tramp" ;
+.
+<http://aksw.org/MarvinFrommhold> a foaf:Person, dct:Agent ;
+  foaf:name "Marvin Frommhold" ;
 .
 ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   foaf:name "eccenca GmbH" ;
