@@ -52,18 +52,45 @@ ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
 .
 <http://creativecommons.org/licenses/by/3.0/> rdfs:label "Creative Commons Attribution 3.0 Unported" .
 
+
+[]
+  a owl:AllDisjointClasses ;
+  owl:members (
+    :Commit :Revision :Branch :Tag :Patch
+  ) .
+
 :Commit a owl:Class ;
   rdfs:label "Commit"@en ;
   rdfs:comment "Represents a modification of the datastore. A commit consists typically on a collection of :Revision (connected with a :hasRevision relationship"@en ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  owl:disjointWith :Revision, :Branch, :Tag ;
   rdfs:subClassOf prov:Activity, prov:InstantaneousEvent ,
     [ a owl:Restriction ;
       owl:onProperty :previousCommit ;
       owl:maxCardinality "2"^^xsd:nonNegativeInteger
     ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitAuthor ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :commitMessage ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ,
+    [ a owl:Restriction ;
+      owl:onProperty :hasRevision ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    .
+
+:Patch a owl:Class ;
+  rdfs:label "Patch"@en ;
+  rdfs:comment "A patch is a prov:Entity which represents an isolated graph modification instruction and is the result of a prov:Activity."@en ;
+  rdfs:isDefinedBy : ;
+  dct:issued "2016-01-13"^^xsd:date ;
+  dct:modified "2016-01-13"^^xsd:date ;
+  rdfs:subClassOf prov:Entity ,
     [ a owl:Restriction ;
       owl:onProperty :commitAuthor ;
       owl:cardinality "1"^^xsd:nonNegativeInteger
@@ -84,7 +111,6 @@ ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  owl:disjointWith :Commit, :Branch, :Tag ;
   rdfs:subClassOf prov:Entity ,
     [ a owl:Restriction ;
       owl:onProperty :deltaDelete ;
@@ -110,7 +136,6 @@ ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  owl:disjointWith :Commit, :Revision, :Tag ;
   rdfs:subClassOf
     [ a owl:Restriction ;
       owl:onProperty :referencesCommit ;
@@ -124,7 +149,6 @@ ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-22"^^xsd:date ;
   dct:modified "2014-12-30"^^xsd:date ;
-  owl:disjointWith :Commit, :Revision, :Branch ;
   rdfs:subClassOf
     [ a owl:Restriction ;
       owl:onProperty :referencesCommit ;

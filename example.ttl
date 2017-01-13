@@ -1,0 +1,46 @@
+@prefix : <https://vocab.eccenca.com/revision/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix ecc: <https://ns.eccenca.com/> .
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix edi: <http://example.org/edi-vocab/> .
+
+ecc:ExampleOrderPatch a :Patch;
+    prov:wasGeneratedBy edi:OrderConfirmation ;
+    prov:wasAttributedTo ecc:mbruemmer ;
+    rdfs:comment "confirm order" ;
+    prov:generatedAtTime "2017-01-12T13:37:00+01:00"^^xsd:dateTime ;
+    :sha256 "c7f9Hb...8Ft2E="^^xsd:base64Binary ;
+    :hasRevision ecc:ExampleOrderPatchRevision ;
+.
+
+ecc:ExampleOrderPatchRevision a :Revision ;
+    :hasRevisionGraph ecc:BuyerPublisherGraph ;
+    :deltaDelete ecc:ExampleDelete ;
+    :deltaInsert ecc:ExampleInsert ;
+.
+
+ecc:ExampleDelete
+    :containsStatement <urn:statement:c54461b5> ;;
+.
+
+<urn:statement:c54461b5>
+    rdf:subject ecc:ExampleOrder ;
+    rdf:predicate edi:orderStatus ;
+    rdf:object edi:Requested ;
+    a rdf:Statement ;
+.
+
+ecc:ExampleInsert
+    :containsStatement <urn:statement:8cf90eb5> ;;
+.
+
+<urn:statement:8cf90eb5>
+    rdf:subject ecc:ExampleOrder ;
+    rdf:predicate edi:orderStatus ;
+    rdf:object edi:Confirmed ;
+    a rdf:Statement ;
+.
+
+# Example 
