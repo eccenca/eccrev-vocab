@@ -1,5 +1,10 @@
-.manual.ttl
 .all.ttl
+.instances.ttl
+.manual.ttl
+.schema.ttl
+yasgui-queries
+tests
 log
 results
-tests
+riot.log
+pellet.log
