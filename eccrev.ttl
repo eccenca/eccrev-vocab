@@ -17,10 +17,10 @@
   rdfs:isDefinedBy : ;
   dct:issued "2014-12-15"^^xsd:date ;
   dct:modified "2016-03-11"^^xsd:date ;
-  owl:versionInfo "v1.1.0" ;
-  dct:rights "Copyright © 2014 - 2016 eccenca GmbH" ;
+  owl:versionInfo "v1.1.1" ;
+  dct:rights "Copyright © 2014 - 2017 eccenca GmbH" ;
   dct:publisher ecc:eccenca-GmbH ;
-  <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/3.0/> ;
+  <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/4.0/> ;
   dct:creator ecc:rnavarropiris, <http://sebastian.tramp.name> ;
   dct:contributor <http://aksw.org/MarvinFrommhold> ;
   void:vocabulary
@@ -50,7 +50,7 @@ ecc:rnavarropiris a foaf:Person, dct:Agent ;
 ecc:eccenca-GmbH a foaf:Organization, dct:Agent ;
   foaf:name "eccenca GmbH" ;
 .
-<http://creativecommons.org/licenses/by/3.0/> rdfs:label "Creative Commons Attribution 3.0 Unported" .
+<http://creativecommons.org/licenses/by/4.0/> rdfs:label "Creative Commons Attribution 4.0 Unported" .
 
 :Commit a owl:Class ;
   rdfs:label "Commit"@en ;

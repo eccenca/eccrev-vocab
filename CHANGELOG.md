@@ -3,7 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.0] 2017-03-06 
+## [1.1.1] 2017-11-17
+
+### Changed
+- forward ontology-includes to enable widoco generation
+
+### Remove
+- unused volw-viz.ttl
+
+## [1.1.0] 2017-03-06
 
 ### Added
 - vowl vizualisation
