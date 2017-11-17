@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 - forward ontology-includes to enable widoco generation
 
+### Remove
+- unused volw-viz.ttl
+
 ## [1.1.0] 2017-03-06
 
 ### Added
