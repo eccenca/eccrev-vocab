@@ -3,7 +3,8 @@
 #manualtests in form of RDFUnit testcase definitions can be added as well
 #MANUALSRC=./includes/rdfunit-owl-tests.ttl
 #INSTANCESRC=test-test-cases.ttl
-SCHEMASRC=eccrev.ttl vowl-viz.ttl
+SCHEMASRC=eccrev.ttl
+DOCSRC=eccrev.ttl
 
 #disable manual and/or automatic tests. default: don't skip tests (=false)
 #SKIPAUTOTESTS=true
